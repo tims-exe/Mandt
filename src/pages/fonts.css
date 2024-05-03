@@ -135,6 +135,12 @@
 }
 
 @media (max-width: 500px){
+    .intro-container{
+        min-height: 550px;
+    }
+    .intro{
+        margin-top: 20%;
+    }
     .categories{
         flex-direction: column;
         gap: 3%;

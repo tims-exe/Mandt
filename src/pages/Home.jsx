@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { supabase } from '../client'
 import './home.css'
 import Products from '../components/Products'
@@ -11,6 +11,7 @@ import ThemTile from '../components/themtile'
 import { Link } from 'react-router-dom'
 /* import axios from 'axios' */
 import { useToast } from '@chakra-ui/react'
+import { motion, useInView, useAnimation } from "framer-motion"
 
 const Home = () => {
 

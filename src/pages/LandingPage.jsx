@@ -1,4 +1,4 @@
-import  React, { useEffect, useRef } from 'react'
+import  React, { useEffect, useRef, useState } from 'react'
 import './fonts.css'
 import menImg from '../assets/men.png'
 import unisexImg from '../assets/unisex.png'
@@ -7,18 +7,40 @@ import line from '../assets/line.png'
 import ourStory from '../assets/ourStory.png'
 import { motion, useInView, useAnimation } from "framer-motion"
 import { Link } from 'react-router-dom'
+import { supabase } from '../client'
 
 
 const LandingPage = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
-
+    const [cart, setCart] = useState([]);
+    const [cartID, setCartID] = useState([]);
+ 
     useEffect(() => {
+        const fetchCart = async () => {
+            const { data } = await supabase
+                .from('cart')
+                .select('*')
+                setCart(data)
+        }
+        fetchCart();
         if (isInView) {
             mainControls.start("visible");
         }
     }, [isInView, mainControls]);
+
+    async function updateCart(cart) {
+        const deletionPromises = cart.map(async (item) => {
+          return supabase
+            .from('cart')
+            .delete()
+            .eq('order_id', item.order_id)
+        });
+      
+        await Promise.all(deletionPromises);
+        console.log("All cart items deleted successfully!"); // Or handle success/failure
+      }
     
     return (
         <div> 
@@ -30,8 +52,8 @@ const LandingPage = () => {
                 <p className="intro">
                     Much More Than Perfume
                 </p>
-                <button className='shop-button'>
-                    <Link to={'/login'}>
+                <button className='shop-button' onClick={() => updateCart(cart)}>
+                    <Link to={'/home'}>
                         SHOP NOW
                     </Link>              
                 </button>

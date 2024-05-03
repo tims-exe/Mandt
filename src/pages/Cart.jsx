@@ -42,7 +42,7 @@ const Cart = (props) => {
         .eq('order_id', id)
     cart.map((items) => {
         if (items.order_id == id) {
-            setMRP(-1*(items.product.price))
+            setMRP(-1*(items.product.price*items.quantity))
         }
     })
     setCalcPrice(true)

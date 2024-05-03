@@ -32,10 +32,7 @@ function App() {
       <BrowserRouter>
         <Routes>
            <Route path="/" element={<LandingPage/>}/>
-           <Route path="/login" element={<Login setToken={setToken}/>}/>
-           <Route path="/signup" element={<Signup/>}/>
            <Route path="/home" element={<Home/>}/>
-           {/* {token?<Route path="/cart" element={<Cart token={token}/>}/>:<Route path="/login" element={<Login setToken={setToken}/>}/>} */}
            <Route path="/cart" element={<Cart/>}/>
         </Routes>
       </BrowserRouter>
@@ -44,3 +41,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+/* {token?<Route path="/cart" element={<Cart token={token}/>}/>:<Route path="/login" element={<Login setToken={setToken}/>}/>} */

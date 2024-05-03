@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import './prdts.css'
 import line_cart from '../assets/lineCart.png'
 import cartimg from '../assets/Cart.png'
+import { motion, useInView, useAnimation } from "framer-motion"
 /* import axios from 'axios' */
 /* import cartButtonClick from './cartButton' */
 
 const Products = (props) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+        mainControls.start("visible");
+    }
+}, [isInView, mainControls]);
+
+
   return (
-    <div className='product-card'>
+    <motion.div className='product-card' ref={ref}
+        variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0 },
+        }}
+        initial= "hidden"
+        animate= {mainControls}
+        transition={{ duration: 0.4, delay: 0.25 }}
+    >
         <img src={props.pic} alt="" className='product-img'/>
         <div className='product-box'key={props.id}>
             <div className="product-dets">
@@ -25,7 +45,7 @@ const Products = (props) => {
                 <img src={cartimg} alt="" />
             </button>
         </div>
-    </div>
+    </motion.div>
   )
 }
 
