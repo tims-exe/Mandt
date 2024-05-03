@@ -17,19 +17,39 @@ const Home = () => {
   const [pf_women, setPF_women] = useState([])
   const [pf_men, setPF_men] = useState([])
   const [pf_unisex, setPF_unisex] = useState([])
+  const [sendReq, setSendReq] = useState(false)
+  const toast = useToast()
+
+  const [item, setItem] = useState({
+    id: null,
+    quantity: 1,
+  })
 
   useEffect(() => {
     fetchProductsM()
     fetchProductsW()
     fetchProductsU()
-  }, [])
+
+    const postItem = async () => {
+        if (sendReq) {
+            await supabase
+                .from('cart')
+                .insert({
+                    product_id: item.id,
+                    quantity: item.quantity
+                })
+            setSendReq(false)
+        }
+    }
+    postItem()
+  }, [sendReq, item])
 
 
   async function fetchProductsM() {
     const {data} = await supabase
         .from('products')
         .select('*')
-        .eq('category', 'women')
+        .eq('category', 'men')
         setPF_men(data)
   }
   async function fetchProductsW() {
@@ -43,12 +63,24 @@ const Home = () => {
     const {data} = await supabase
         .from('products')
         .select('*')
-        .eq('category', 'women')
+        .eq('category', 'unisex')
         setPF_unisex(data)
   }
 
   const logoutButton = () => {}
-  const cartButtonClick = () => {}
+  const cartButtonClick = (id, name, price) => {
+    setItem({
+        id: id,
+        quantity: 1,
+    })
+    toast({
+        title: `${name} added to Cart`,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+    })
+    setSendReq(true)
+  }
 
   return (
     <>

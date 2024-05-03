@@ -35,7 +35,8 @@ function App() {
            <Route path="/login" element={<Login setToken={setToken}/>}/>
            <Route path="/signup" element={<Signup/>}/>
            <Route path="/home" element={<Home/>}/>
-           {token?<Route path="/cart" element={<Cart token={token}/>}/>:""}
+           {/* {token?<Route path="/cart" element={<Cart token={token}/>}/>:<Route path="/login" element={<Login setToken={setToken}/>}/>} */}
+           <Route path="/cart" element={<Cart/>}/>
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
