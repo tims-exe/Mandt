@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { supabase } from '../client'
 import './home.css'
 import Products from '../components/Products'
@@ -9,9 +9,7 @@ import HerTile from '../components/hertile'
 import HimTile from '../components/himtile'
 import ThemTile from '../components/themtile'
 import { Link } from 'react-router-dom'
-/* import axios from 'axios' */
 import { useToast } from '@chakra-ui/react'
-import { motion, useInView, useAnimation } from "framer-motion"
 
 const Home = () => {
 
@@ -33,13 +31,17 @@ const Home = () => {
 
     const postItem = async () => {
         if (sendReq) {
-            await supabase
+           try {
+                await supabase
                 .from('cart')
                 .insert({
                     product_id: item.id,
                     quantity: item.quantity
                 })
-            setSendReq(false)
+           } catch (error) {
+                console.log(error)
+           }
+           setSendReq(false)
         }
     }
     postItem()
@@ -47,25 +49,37 @@ const Home = () => {
 
 
   async function fetchProductsM() {
-    const {data} = await supabase
-        .from('products')
-        .select('*')
-        .eq('category', 'men')
-        setPF_men(data)
+    try {
+        const {data} = await supabase
+            .from('products')
+            .select('*')
+            .eq('category', 'men')
+            setPF_men(data)
+    } catch (error) {
+        console.log(error)
+    }
   }
   async function fetchProductsW() {
-    const {data} = await supabase
-        .from('products')
-        .select('*')
-        .eq('category', 'women')
-        setPF_women(data)
+    try {
+        const {data} = await supabase
+            .from('products')
+            .select('*')
+            .eq('category', 'women')
+            setPF_women(data)
+    } catch (error) {
+        console.log(error)
+    }
   }
   async function fetchProductsU() {
-    const {data} = await supabase
-        .from('products')
-        .select('*')
-        .eq('category', 'unisex')
-        setPF_unisex(data)
+    try {
+        const {data} = await supabase
+            .from('products')
+            .select('*')
+            .eq('category', 'unisex')
+            setPF_unisex(data)
+    } catch (error) {
+        console.log(error)
+    }
   }
 
   const logoutButton = () => {}
@@ -111,19 +125,19 @@ const Home = () => {
         <HerTile/>
         <div className='flex flex-wrap justify-center'>
             {pf_women.map((perfume_women)=>(
-                <Products id={perfume_women.id} name={perfume_women.name} price={perfume_women.price} pic={`images/${perfume_women.img}`} cartButtonClick={cartButtonClick}/>
+                    <Products id={perfume_women.id} name={perfume_women.name} price={perfume_women.price} pic={`images/${perfume_women.img}`} cartButtonClick={cartButtonClick} desc={perfume_women.description} ml={perfume_women.mL}/>
             ))}
         </div>
         <HimTile/>
         <div className='flex flex-wrap justify-center'>
             {pf_men.map((perfume_men)=>(
-                <Products id={perfume_men.id} name={perfume_men.name} price={perfume_men.price} pic={`images/${perfume_men.img}`} cartButtonClick={cartButtonClick}/>
+                <Products id={perfume_men.id} name={perfume_men.name} price={perfume_men.price} pic={`images/${perfume_men.img}`} cartButtonClick={cartButtonClick} desc={perfume_men.description} ml={perfume_men.mL}/>
             ))}
         </div>
         <ThemTile/>
         <div className='flex flex-wrap justify-center'>
             {pf_unisex.map((perfume_unisex)=>(
-                <Products id={perfume_unisex.id} name={perfume_unisex.name} price={perfume_unisex.price} pic={`images/${perfume_unisex.img}`} cartButtonClick={cartButtonClick}/>
+                <Products id={perfume_unisex.id} name={perfume_unisex.name} price={perfume_unisex.price} pic={`images/${perfume_unisex.img}`} cartButtonClick={cartButtonClick} desc={perfume_unisex.description} ml={perfume_unisex.mL}/>
             ))}
         </div>
     </>

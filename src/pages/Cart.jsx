@@ -5,6 +5,7 @@ import CartItems from '../components/cartItem'
 import { Link } from 'react-router-dom'
 import TotalBill from '../components/total'
 import { pipe } from 'framer-motion'
+import { EnvironmentProvider } from '@chakra-ui/react'
 
 const Cart = (props) => {
 
@@ -12,6 +13,7 @@ const Cart = (props) => {
   const [mrp, setMRP] = useState(0)  
   const [calcPrice, setCalcPrice] = useState(true)
   const [sendReq, setSendReq] = useState(false)
+  const [len, setLen] = useState(0)
 
   useEffect(() => {
     fetchCartItems()
@@ -24,40 +26,57 @@ const Cart = (props) => {
   }, [cart, calcPrice])
 
   async function fetchCartItems() {
-    const {data} = await supabase
-        .from('cart')
-        .select(`
-            order_id,
-            quantity,
-            product:product_id( id, name, price, img )
-        `)
-        .order('order_id', { ascending: true });
-    setCart(data)
+    try {
+        const {data, error} = await supabase
+            .from('cart')
+            .select(`
+                order_id,
+                quantity,
+                product:product_id( id, name, price, img )
+            `)
+            .order('order_id', { ascending: true });
+        setCart(data)
+        setLen(data.length)
+        if (error) throw error
+    } catch (error) {
+        console.log(error)
+    }
   }
 
   const deleteButtonClick = async (id) => {
-    const { data, error } = await supabase
-        .from('cart')
-        .delete()
-        .eq('order_id', id)
-    cart.map((items) => {
-        if (items.order_id == id) {
-            setMRP(-1*(items.product.price*items.quantity))
-        }
-    })
-    setCalcPrice(true)
+    try {
+        const { data, error } = await supabase
+            .from('cart')
+            .delete()
+            .eq('order_id', id)
+        cart.map((items) => {
+            if (items.order_id == id) {
+                setMRP(-1*(items.product.price*items.quantity))
+            }
+        })
+        setCalcPrice(true)
+        if (error) throw error
+    } catch (error) {
+        console.log(error)
+    }
+    window.location.reload()
   }
   const updateDB = async (id, qnty, i) => {
-    const { data, error } = await supabase
-        .from('cart')
-        .update({quantity: qnty})
-        .eq('order_id', id);
-    cart.map((items) => {
-        if (items.order_id == id) {
-            setMRP(items.product.price*i)
-        }
-    })
-    setCalcPrice(true)
+    try {
+        const { data, error } = await supabase
+            .from('cart')
+            .update({quantity: qnty})
+            .eq('order_id', id);
+        cart.map((items) => {
+            if (items.order_id == id) {
+                setMRP(items.product.price*i)
+            }
+        })
+        setCalcPrice(true)
+        if (error) throw error
+    } catch (error) {
+        console.log(error)
+    }
     //window.location.reload()
   }          
 
@@ -87,7 +106,7 @@ const Cart = (props) => {
                 }
             </div>
             <div className='item-bill'>
-                <TotalBill mrp={mrp}/>
+                <TotalBill mrp={mrp} length={len}/>
             </div>
         </div>
     </>

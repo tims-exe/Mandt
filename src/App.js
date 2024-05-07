@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import { useEffect, useState } from "react";
+import Confirmed from "./components/OrderPlaced";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
            <Route path="/" element={<LandingPage/>}/>
            <Route path="/home" element={<Home/>}/>
            <Route path="/cart" element={<Cart/>}/>
+           <Route path="/confirmed" element={<Confirmed/>}/>
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

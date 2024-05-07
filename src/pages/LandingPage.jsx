@@ -15,14 +15,17 @@ const LandingPage = () => {
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
     const [cart, setCart] = useState([]);
-    const [cartID, setCartID] = useState([]);
- 
+
     useEffect(() => {
         const fetchCart = async () => {
-            const { data } = await supabase
-                .from('cart')
-                .select('*')
-                setCart(data)
+            try {
+                const { data } = await supabase
+                    .from('cart')
+                    .select('*')
+                    setCart(data)
+            } catch (error) {
+                console.log(error)
+            }
         }
         fetchCart();
         if (isInView) {
@@ -31,15 +34,19 @@ const LandingPage = () => {
     }, [isInView, mainControls]);
 
     async function updateCart(cart) {
-        const deletionPromises = cart.map(async (item) => {
-          return supabase
-            .from('cart')
-            .delete()
-            .eq('order_id', item.order_id)
-        });
-      
-        await Promise.all(deletionPromises);
-        console.log("All cart items deleted successfully!"); // Or handle success/failure
+        try {
+            const deletionPromises = cart.map(async (item) => {
+                return supabase
+                  .from('cart')
+                  .delete()
+                  .eq('order_id', item.order_id)
+              });
+            
+              await Promise.all(deletionPromises);
+              console.log("All cart items deleted successfully!");
+        } catch (error) {
+            console.log(error)     
+        }
       }
     
     return (

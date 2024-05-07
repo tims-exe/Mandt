@@ -6,19 +6,8 @@ import CoupCard from './couponcard'
 const TotalBill = (props) => {
   
   const [dsc, setDsc] = useState(0)
-  /* const [sendReq, setSendReq] = useState(false)
-  const [total, setTotal] = useState(props.mrp) */
-
-  /* useEffect(() => {
-    if (sendReq) {
-        setTotal(props.mrp - ((dsc/100)*props.mrp))
-        setSendReq(false)
-    }
-  }, [sendReq, dsc, props.mrp]) */
-
   const discountApplied = (percent) => {
     setDsc(percent)
-    /* setSendReq(true) */
   }
 
   return (
@@ -53,7 +42,7 @@ const TotalBill = (props) => {
             </div> */}
         </div>
         <CoupCard discountApplied={discountApplied}/>
-        <GrandTotal total={props.mrp - ((dsc/100)*props.mrp)}/>
+        <GrandTotal total={props.mrp - ((dsc/100)*props.mrp)} length={props.length}/>
     </div>
   )
 }
