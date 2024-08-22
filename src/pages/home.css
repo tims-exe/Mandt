@@ -1,0 +1,241 @@
+.login-container{
+    width: 35%;
+    height: 40%;
+    background-color:#A77650;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-input{
+    padding-block: 1%;
+    padding-inline: 3%;
+    border-radius: 5px;
+}
+
+.login-button{
+    background-color: white;
+    margin-top: 3%;
+    padding-inline: 4%;
+    padding-block: 1%;
+    border-radius: 10px;
+}
+
+.home-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.home-logo{
+    font-family: "Italiana", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(50px, 5vw, 80px);
+    color: #A6754F;
+}
+
+.home-img{
+    height: 40px;
+    width: 40px;
+}
+
+.header-line{
+    margin-top: 2%;
+    width: 90%;
+}
+
+.home-desc{
+    margin-top: 3%;
+    font-family: "Oranienbaum", serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: clamp(30px, 5vw, 50px);
+    color: #A77650;
+}
+
+.home-her{
+    margin-top: 3%;
+    width: 100%;
+    height: 200px;
+    background-image: url('../assets/for_her.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+.home-him{
+    margin-top: 3%;
+    width: 100%;
+    height: 192px;
+    background-image: url('../assets/for_him.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+.home-them{
+    margin-top: 3%;
+    width: 100%;
+    height: 190px;
+    background-image: url('../assets/for_them2.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+}
+
+.her-title{
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(30px, 5vw, 40px);
+    color: #4C2C14;
+}
+
+.him-title{
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(30px, 5vw, 40px);
+    color: #4C2C14;
+}
+
+.them-title{
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(30px, 5vw, 40px);
+    color: white;
+}
+
+.her-desc{
+    margin-inline: 5%;
+    text-align: center;
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(15px, 3vw, 25px);
+    color: #4C2C14;
+}
+
+.him-desc{
+    margin-inline: 5%;
+    text-align: center;
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(15px, 3vw, 25px);
+    color: #4C2C14;
+}
+
+.them-desc{
+    margin-inline: 5%;
+    text-align: center;
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(15px, 3vw, 25px);
+    color: white;
+}
+
+.cart-title{
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    align-self: center;
+}
+
+.cart-line{
+    margin-top: 2%;
+    width: 60%;
+}
+
+.item-box{
+    flex: 1;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-right: 10%;
+    margin-bottom: 5%;
+}
+
+.item-empty{
+    text-align: center;
+    padding-right: 10%;
+    padding-top: 20%;
+    font-family: "Ovo", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(25px, 4vw, 30px);
+}
+
+.item-bill{
+    flex: 1;
+    position: fixed;
+    padding-right: 7%;
+    padding-top: 3%;
+}
+
+.bill{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+@media (max-width: 500px){
+    .home-img{
+        height: 30px;
+        width: 30px;
+    }
+    .header-line{
+        margin-bottom: 7%;
+    }
+    .home-desc{
+        margin-bottom: 7%;
+    }
+    .home-her{
+        height: 120px;
+        margin-bottom: 10%;
+    }
+    .home-him{
+        height: 120px;
+        margin-bottom: 10%;
+    }
+    .home-them{
+        height: 120px;
+        margin-bottom: 10%;
+    }
+    .bill{
+        flex-direction: column;
+        height: 100%;
+    }
+    .item-box{
+        padding-right: 0%;
+    }
+    .item-bill{
+        margin: 7%;
+        position: relative;
+        padding-right: 0px;
+    }
+    .item-empty{
+        padding-right: 0%;
+    }
+}
